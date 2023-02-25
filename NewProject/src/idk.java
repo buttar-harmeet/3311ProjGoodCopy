@@ -25,12 +25,12 @@ import java.sql.Connection;
 	            statement = connect.createStatement();
 	            // Result set get the result of the SQL query
 	            resultSet = statement
-	                    .executeQuery("select * from feedback.comments");
+	                    .executeQuery("select * from feedback.project5");
 	            writeResultSet(resultSet);
 
 	            // PreparedStatements can use variables and are more efficient
 	            preparedStatement = connect
-	                    .prepareStatement("insert into  feedback.comments values (default, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?)");
+	                    .prepareStatement("insert into  feedback.project5 values (default, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?)");
 	            // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
 	            // Parameters start with 1
 //	            preparedStatement.setString(1, "Test");
@@ -42,7 +42,7 @@ import java.sql.Connection;
 //	            preparedStatement.executeUpdate();
 
 	            preparedStatement = connect
-	                    .prepareStatement("SELECT REF_DATE, GEO, DGUID, NHPI, UOM, UOM_ID, SCALAR_FACTOR, SCALAR_ID, VECTOR, COORDINATE, VAL, STAT from feedback.comments");
+	                    .prepareStatement("SELECT REF_DATE, GEO, DGUID, NHPI, UOM, UOM_ID, SCALAR_FACTOR, SCALAR_ID, VECTOR, COORDINATE, VAL, STAT from feedback.project5");
 	            resultSet = preparedStatement.executeQuery();
 	            writeResultSet(resultSet);
 
@@ -53,7 +53,7 @@ import java.sql.Connection;
 //	            preparedStatement.executeUpdate();
 
 	            resultSet = statement
-	            .executeQuery("select * from feedback.comments");
+	            .executeQuery("select * from feedback.project5");
 	            writeMetaData(resultSet);
 
 	        } catch (Exception e) {
@@ -84,19 +84,34 @@ import java.sql.Connection;
 	            // which starts at 1
 	            // e.g. resultSet.getSTring(2);
 	        	//REF_DATE, GEO, DGUID, NHPI, UOM, UOM_ID, SCALAR_FACTOR, SCALAR_ID, VECTOR, COORDINATE, VAL, STAT
-	            Date refDate = resultSet.getDate("REF_DATE");
+	            String refDate = resultSet.getString("REF_DATE");
 	            String geo = resultSet.getString("GEO");
 	            String DGid = resultSet.getString("DGUID");
 	            String NHP = resultSet.getString("NHPI");
 	            String UOM1 = resultSet.getString("UOM");
+	            String UOMID = resultSet.getString("UOM_ID");
+	            String SCAL = resultSet.getString("SCALAR_FACTOR");
+	            String SCALID = resultSet.getString("SCALAR_ID");
+	            String Vect = resultSet.getString("VECTOR");
+	            Double COORD = resultSet.getDouble("COORDINATE");
+	            String Val = resultSet.getString("VAL");
+	            String Stat = resultSet.getString("STAT");
 	            
 	            
 	            
 	            System.out.println("refDate: " + refDate);
-	            System.out.println("geo: " + geo);
-	            System.out.println("DGid: " + DGid);
-	            System.out.println("NHP: " + NHP);
-	            System.out.println("UOM1: " + UOM1);
+	            System.out.println("GEO: " + geo);
+	            System.out.println("DGUid: " + DGid);
+	            System.out.println("NHPI: " + NHP);
+	            System.out.println("UOM: " + UOM1);
+	            System.out.println("UOM_ID: " + UOMID);
+	            System.out.println("SCALAR_FACTOR: " + SCAL);
+	            System.out.println("SCALAR_ID: " + SCALID);
+	            System.out.println("VECTOR: " + Vect);
+	            System.out.println("COORDINATE: " + COORD);
+	            System.out.println("VAL: " + Val);
+	            System.out.println("STAT: " + Stat);
+	            System.out.println("---------------------------------------");
 	        }
 	    }
 

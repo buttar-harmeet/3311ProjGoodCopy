@@ -20,12 +20,10 @@ public class Main {
 
     public static void createMainFrame() {
     	JFrame f = new JFrame("NHPI Statistics");
-    	    	
-//        f.getContentPane().add(addDataSet(), BorderLayout.NORTH);
-//        f.getContentPane().add(addDataSet(), BorderLayout.NORTH);
         
         JPanel topbar = new JPanel();
         topbar.setLayout(new BoxLayout(topbar, BoxLayout.Y_AXIS));
+        topbar.setMinimumSize(topbar.getMinimumSize());
         addDataSet(topbar);
         addDataSet(topbar);
         
@@ -34,6 +32,7 @@ public class Main {
         	topbar.remove(topbar.getComponentCount() -  1);
         	addDataSet(topbar);
         	topbar.add(btn);
+        	topbar.setMinimumSize(topbar.getMinimumSize());
         	f.validate();
         	f.repaint();
         });
@@ -85,9 +84,9 @@ public class Main {
         buttons.add(viewMachineTest);
         
         f.getContentPane().add(buttons, BorderLayout.CENTER);
-        
+      
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(1050, 600);
+        f.setSize(f.getMaximumSize());
         //f.setLayout(null);
         f.setVisible(true);
     }
@@ -130,6 +129,17 @@ public class Main {
         panel.add(fromList);
         panel.add(to);
         panel.add(toList);
+        
+        JButton btn = new JButton("-");
+        btn.addActionListener(e -> {
+        	if(container.getComponentCount() > 3){
+        		container.remove(panel);	
+        	}
+        	container.setMaximumSize(container.getMinimumSize());
+        	container.validate();
+    		container.repaint();
+        });
+        panel.add(btn);
         container.add(panel);
     }
 

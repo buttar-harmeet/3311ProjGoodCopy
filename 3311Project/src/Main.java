@@ -134,10 +134,10 @@ public class Main {
         btn.addActionListener(e -> {
         	if(container.getComponentCount() > 3){
         		container.remove(panel);	
+        		container.setSize(container.getWidth(),container.getHeight() - panel.getHeight());
+        		container.validate();
+        		container.repaint();
         	}
-        	container.setMaximumSize(container.getMinimumSize());
-        	container.validate();
-    		container.repaint();
         });
         panel.add(btn);
         container.add(panel);

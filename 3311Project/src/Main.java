@@ -14,8 +14,12 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
+    	
+        createMainFrame();
+    }
 
-        JFrame f = new JFrame("NHPI Statistics");
+    public static void createMainFrame() {
+    	JFrame f = new JFrame("NHPI Statistics");
 
         // Set top bar
         JLabel chooseCountryLabel = new JLabel("Choose a Province: ");
@@ -60,7 +64,7 @@ public class Main {
         viewTables.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                createChartFrame();
+                tableFrame();
             }
         });
 
@@ -87,7 +91,7 @@ public class Main {
         viewMachineTest.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                statisticalTestFrame();
+            	machineTestFrame();
             }
         });
 
@@ -95,11 +99,11 @@ public class Main {
         f.add(viewCharts);
         f.add(viewStatistics);
         f.add(viewMachineTest);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(1050, 600);
         f.setLayout(null);
         f.setVisible(true);
     }
-
 
 
     public static void tableFrame() {
@@ -134,35 +138,33 @@ public class Main {
 
     }
     public static void createChartFrame() {
+    	JFrame frame = new JFrame("Chart Frame");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setOpaque(true);
+        JTextArea textArea = new JTextArea(15, 50);
+        textArea.setWrapStyleWord(true);
+        textArea.setEditable(false);
+        textArea.setFont(Font.getFont(Font.SANS_SERIF));
+        JScrollPane scroller = new JScrollPane(textArea);
+        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JPanel inputpanel = new JPanel();
 
-            JFrame frame = new JFrame("Chart Frame");
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            JPanel panel = new JPanel();
-            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-            panel.setOpaque(true);
-            JTextArea textArea = new JTextArea(15, 50);
-            textArea.setWrapStyleWord(true);
-            textArea.setEditable(false);
-            textArea.setFont(Font.getFont(Font.SANS_SERIF));
-            JScrollPane scroller = new JScrollPane(textArea);
-            scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-            scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-            JPanel inputpanel = new JPanel();
+        panel.add(scroller);
 
-            panel.add(scroller);
-
-            panel.add(inputpanel);
-            frame.getContentPane().add(BorderLayout.CENTER, panel);
-            frame.pack();
-            frame.setLocationByPlatform(true);
-            frame.setVisible(true);
-            frame.setResizable(false);
-
+        panel.add(inputpanel);
+        frame.getContentPane().add(BorderLayout.CENTER, panel);
+        frame.pack();
+        frame.setLocationByPlatform(true);
+        frame.setVisible(true);
+        frame.setResizable(false);
         }
 
     public static void statisticalTestFrame() {
@@ -186,7 +188,6 @@ public class Main {
         JPanel inputpanel = new JPanel();
 
         panel.add(scroller);
-
         panel.add(inputpanel);
         frame.getContentPane().add(BorderLayout.CENTER, panel);
         frame.pack();

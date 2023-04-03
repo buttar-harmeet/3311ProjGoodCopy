@@ -11,7 +11,9 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Main {
-
+	
+	private static final int BTN_WIDTH = 250;
+	private static final int BTN_HEIGHT = 100;
 
     public static void main(String[] args) throws Exception {
     	
@@ -43,43 +45,27 @@ public class Main {
         JPanel buttons = new JPanel();
 
         JButton viewTables = new JButton("View Tables / Raw Data");
-        viewTables.setPreferredSize(new Dimension(250,100));
-        //viewTables.setBounds(50, 100, 200, 300);
-        viewTables.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                tableFrame();
-            }
+        viewTables.setPreferredSize(new Dimension(BTN_WIDTH,BTN_HEIGHT));
+        viewTables.addActionListener(e -> {
+        	tableFrame();
         });
 
         JButton viewCharts = new JButton("View Graphs / Charts");
-        viewCharts.setPreferredSize(new Dimension(250,100));
-        //viewCharts.setBounds(300, 100, 200, 300);
-        viewCharts.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                createChartFrame();
-            }
+        viewCharts.setPreferredSize(new Dimension(BTN_WIDTH,BTN_HEIGHT));
+        viewCharts.addActionListener(e -> {
+        	createChartFrame();
         });
 
         JButton viewStatistics = new JButton("View Statistical Tests");
-        viewStatistics.setPreferredSize(new Dimension(250,100));
-       // viewStatistics.setBounds(550, 100, 200, 300);
-        viewStatistics.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                statisticalTestFrame();
-            }
+        viewStatistics.setPreferredSize(new Dimension(BTN_WIDTH,BTN_HEIGHT));
+        viewStatistics.addActionListener(e -> {
+        	statisticalTestFrame();
         });
 
         JButton viewMachineTest = new JButton("View Machine Tests");
-        viewMachineTest.setPreferredSize(new Dimension(250,100));
-        //viewMachineTest.setBounds(800, 100, 200, 300);
-        viewMachineTest.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-            	machineTestFrame();
-            }
+        viewMachineTest.setPreferredSize(new Dimension(BTN_WIDTH,BTN_HEIGHT));
+        viewMachineTest.addActionListener(e -> {
+        	machineTestFrame();
         });
 
         buttons.add(viewTables);
@@ -91,7 +77,6 @@ public class Main {
       
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(f.getMaximumSize());
-        //f.setLayout(null);
         f.setVisible(true);
     }
     

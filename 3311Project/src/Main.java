@@ -43,6 +43,7 @@ public class Main {
         JPanel buttons = new JPanel();
 
         JButton viewTables = new JButton("View Tables / Raw Data");
+        viewTables.setPreferredSize(new Dimension(250,100));
         //viewTables.setBounds(50, 100, 200, 300);
         viewTables.addActionListener(new ActionListener() {
 
@@ -52,6 +53,7 @@ public class Main {
         });
 
         JButton viewCharts = new JButton("View Graphs / Charts");
+        viewCharts.setPreferredSize(new Dimension(250,100));
         //viewCharts.setBounds(300, 100, 200, 300);
         viewCharts.addActionListener(new ActionListener() {
 
@@ -61,6 +63,7 @@ public class Main {
         });
 
         JButton viewStatistics = new JButton("View Statistical Tests");
+        viewStatistics.setPreferredSize(new Dimension(250,100));
        // viewStatistics.setBounds(550, 100, 200, 300);
         viewStatistics.addActionListener(new ActionListener() {
 
@@ -70,6 +73,7 @@ public class Main {
         });
 
         JButton viewMachineTest = new JButton("View Machine Tests");
+        viewMachineTest.setPreferredSize(new Dimension(250,100));
         //viewMachineTest.setBounds(800, 100, 200, 300);
         viewMachineTest.addActionListener(new ActionListener() {
 
@@ -111,23 +115,34 @@ public class Main {
         //countriesList.setBounds(250, 10, 100, 100 );
 
         JLabel from = new JLabel("From");
-        //from.setBounds(400, 10, 100, 100);
         JLabel to = new JLabel("To");
-        //to.setBounds(700, 10, 100, 100);
+
         Vector<String> years = new Vector<String>();
         for (int i = 2021; i >= 2010; i--) {
             years.add("" + i);
         }
+        
+        Vector<String> months = new Vector<>();
+        for(int i=1; i < 13; i++) {
+        	if(i < 10)
+        		months.add("0"+i);
+        	else
+        		months.add(""+i);
+        }
+ 
+        JComboBox<String> fromMonthList = new JComboBox<String>(months);
         JComboBox<String> fromList = new JComboBox<String>(years);
-        //fromList.setBounds(450, 10, 200, 100);
+        JComboBox<String> toMonthList = new JComboBox<String>(months);
         JComboBox<String> toList = new JComboBox<String>(years);
-        //toList.setBounds(750, 10, 200, 100);
+
 
         panel.add(chooseCountryLabel);
         panel.add(countriesList);
         panel.add(from);
+        panel.add(fromMonthList);
         panel.add(fromList);
         panel.add(to);
+        panel.add(toMonthList);
         panel.add(toList);
         
         JButton btn = new JButton("-");
@@ -176,33 +191,7 @@ public class Main {
 
     }
     public static void createChartFrame() {
-    	JFrame frame = new JFrame("Chart Frame");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setOpaque(true);
-        JTextArea textArea = new JTextArea(15, 50);
-        textArea.setWrapStyleWord(true);
-        textArea.setEditable(false);
-        textArea.setFont(Font.getFont(Font.SANS_SERIF));
-        JScrollPane scroller = new JScrollPane(textArea);
-        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        JPanel inputpanel = new JPanel();
-
-        panel.add(scroller);
-
-        panel.add(inputpanel);
-        frame.getContentPane().add(BorderLayout.CENTER, panel);
-        frame.pack();
-        frame.setLocationByPlatform(true);
-        frame.setVisible(true);
-        frame.setResizable(false);
+    	new Charts();
         }
 
     public static void statisticalTestFrame() {

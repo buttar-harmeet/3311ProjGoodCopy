@@ -1,6 +1,5 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,14 +7,15 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class db {
-	private Connection connect = null;
-    private Statement statement = null;
-    private ResultSet resultSet = null;
-
+	private static Connection connect = null;
+    private static Statement statement = null;
+    private static ResultSet resultSet = null;
+    static ArrayList<ArrayList<String>> datasets = new ArrayList<>();
+    
     public db() throws Exception {
         try {
-            // This will load the MySQL driver, each DB has its own driver
-            Class.forName("com.mysql.jdbc.Driver");
+            // This will load the MySQL driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
             // Setup the connection with the DB
             connect = DriverManager
                     .getConnection("jdbc:mysql://localhost/db?"
@@ -34,20 +34,34 @@ public class db {
 
     }
     
-    public ResultSet getData(String city, String year1, String year2) {
+    public static ResultSet getData(ArrayList<String> dataset) {
     	ResultSet result = null;
 		try {
-			result = statement.executeQuery("Select VALUE, REF_DATE from db.nhip where "
-					+ "GEO = "+city+" AND REF_DATE BETWEEN "+ year1 + " AND "+ year2);
+			result = statement.executeQuery("Select GEO, VALUE, REF_DATE from db.nhip "
+					+ "WHERE GEO = '"+ dataset.get(0)+"' AND REF_DATE BETWEEN "+ dataset.get(1) + " AND "+ dataset.get(2));
+			
+			 writeResultSet(result);
 		} catch (SQLException e) {
+			System.out.println("Select GEO, VALUE, REF_DATE from db.nhip "
+					+ "WHERE GEO = '"+dataset.get(0)+"' AND REF_DATE BETWEEN "+ dataset.get(1) + " AND "+ dataset.get(2));
 			System.out.println("Error occured in getData()\n");
 			e.printStackTrace();
 		}
     	return result;
     }
+    
+    public static ArrayList<ResultSet> getResults(){
+		
+		ArrayList<ResultSet> results = new ArrayList<>();
+		for(ArrayList<String> dataset: db.datasets) {
+			ResultSet result = db.getData(dataset);
+			results.add(result);
+		}
+		return results;
+	}
 
 
-    private void writeResultSet(ResultSet resultSet) throws SQLException {
+    private static void writeResultSet(ResultSet resultSet) throws SQLException {
         // ResultSet is initially before the first data set
         while (resultSet.next()) {
             // It is possible to get the columns via name
@@ -69,7 +83,7 @@ public class db {
         }
     }
     
-    public Vector<String> getGEO(){
+    public static Vector<String> getGEO(){
     	Vector<String> list = new Vector<>();
     	
     	ResultSet result = null;

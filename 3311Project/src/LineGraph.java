@@ -8,6 +8,7 @@ public class LineGraph extends Graph {
 		// TODO Auto-generated method stub
 		JPanel panel = new JPanel();
 		panel.add(new JLabel("Line Graph"));
+		db.getResults();
 		return panel;
 	}
 

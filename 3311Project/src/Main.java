@@ -12,11 +12,9 @@ public class Main {
 	private static final int BTN_WIDTH = 250;
 	private static final int BTN_HEIGHT = 100;
 	
-	private static ArrayList<ArrayList<String>> datasets = new ArrayList<>();
-	private static db database;
 
     public static void main(String[] args) throws Exception {
-    	database = new db();
+    	new db();
         createMainFrame();
     }
 
@@ -86,22 +84,9 @@ public class Main {
     
     public static void addDataSet(JPanel container) {
     	JPanel panel = new JPanel();
+    	
     	// Set top bar
         JLabel chooseCountryLabel = new JLabel("Choose a Province: ");
-        //chooseCountryLabel.setBounds(100, 10, 200, 100);
-        Vector<String> provincesNames = new Vector<String>();
-        provincesNames.add("Ontario");
-        provincesNames.add("Quebec");
-        provincesNames.add("Saskatchewan");
-        provincesNames.add("Manitoba");
-        provincesNames.add("Alberta");
-        provincesNames.add("British Columbia");
-        provincesNames.add("PEI");
-        provincesNames.add("Nova Scotia");
-        provincesNames.add("Nunavut");
-        provincesNames.sort(null);
-        //countriesList.setBounds(250, 10, 100, 100 );
-
         JLabel from = new JLabel("From");
         JLabel to = new JLabel("To");
 
@@ -118,7 +103,7 @@ public class Main {
         		months.add(""+i);
         }
         
-        JComboBox<String> countriesList = new JComboBox<String>(database.getGEO());
+        JComboBox<String> countriesList = new JComboBox<String>(db.getGEO());
         JComboBox<String> fromMonthList = new JComboBox<String>(months);
         JComboBox<String> fromList = new JComboBox<String>(years);
         JComboBox<String> toMonthList = new JComboBox<String>(months);
@@ -245,12 +230,12 @@ public class Main {
 
     }
     
-    private static void updateDatasets(JPanel panel) {
-    	datasets = new ArrayList<>();
+    @SuppressWarnings("unchecked")
+	private static void updateDatasets(JPanel panel) {
+    	db.datasets = new ArrayList<>();
     	for(int i=0; i < panel.getComponentCount() - 1; i++) {
     		JPanel temp = (JPanel) panel.getComponent(i);
-    		// panel will have comboboxes for city, year1, month1, year2, month2
-    		// index -> 1,3,4,6,7
+    		// index -> 1 for city,3 and 4 for starting month and year, 6 and 7 for ending month and year
     		String city = String.valueOf(((JComboBox<String>)temp.getComponent(1)).getSelectedItem());
     		String month1 = String.valueOf(((JComboBox<String>)temp.getComponent(3)).getSelectedItem());
     		String year1 = String.valueOf(((JComboBox<String>)temp.getComponent(4)).getSelectedItem());
@@ -262,10 +247,7 @@ public class Main {
     		list.add(year1+"-"+month1);
     		list.add(year2+"-"+month2);
     		
-    		datasets.add(list);
-    	}
-    	for(ArrayList<String> list : datasets) {
-    		System.out.print(list.toString());
+    		db.datasets.add(list);
     	}
     }
 

@@ -4,10 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class db {
 	private Connection connect = null;
-    private Statement statement = null
+    private Statement statement = null;
     private ResultSet resultSet = null;
 
     public db() throws Exception {
@@ -28,8 +30,6 @@ public class db {
 
         } catch (Exception e) {
             throw e;
-        } finally {
-            close();
         }
 
     }
@@ -67,6 +67,22 @@ public class db {
             System.out.println("VAL:" + Val);
             System.out.println("---------------------------------------");
         }
+    }
+    
+    public Vector<String> getGEO(){
+    	Vector<String> list = new Vector<>();
+    	
+    	ResultSet result = null;
+    	try {
+			result = statement.executeQuery("select Distinct GEO from db.nhip");
+			while(result.next()) list.add(result.getString("GEO"));
+			
+		} catch (SQLException e) {
+			System.out.println("Error occured in getData()\n");
+			e.printStackTrace();
+		}
+    	
+    	return list;
     }
 
     // You need to close the resultSet

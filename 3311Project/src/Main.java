@@ -1,7 +1,6 @@
 //package statsVisualiser.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -14,10 +13,11 @@ public class Main {
 	private static final int BTN_HEIGHT = 100;
 	
 	private static ArrayList<ArrayList<String>> datasets = new ArrayList<>();
+	private static db database;
 
     public static void main(String[] args) throws Exception {
+    	database = new db();
         createMainFrame();
-        db database = new db();
     }
 
     public static void createMainFrame() {
@@ -47,24 +47,28 @@ public class Main {
         JButton viewTables = new JButton("View Tables / Raw Data");
         viewTables.setPreferredSize(new Dimension(BTN_WIDTH,BTN_HEIGHT));
         viewTables.addActionListener(e -> {
+        	updateDatasets(topbar);
         	tableFrame();
         });
 
         JButton viewCharts = new JButton("View Graphs / Charts");
         viewCharts.setPreferredSize(new Dimension(BTN_WIDTH,BTN_HEIGHT));
         viewCharts.addActionListener(e -> {
+        	updateDatasets(topbar);
         	createChartFrame();
         });
 
         JButton viewStatistics = new JButton("View Statistical Tests");
         viewStatistics.setPreferredSize(new Dimension(BTN_WIDTH,BTN_HEIGHT));
         viewStatistics.addActionListener(e -> {
+        	updateDatasets(topbar);
         	statisticalTestFrame();
         });
 
         JButton viewMachineTest = new JButton("View Machine Tests");
         viewMachineTest.setPreferredSize(new Dimension(BTN_WIDTH,BTN_HEIGHT));
         viewMachineTest.addActionListener(e -> {
+        	updateDatasets(topbar);
         	machineTestFrame();
         });
 
@@ -114,7 +118,7 @@ public class Main {
         		months.add(""+i);
         }
         
-        JComboBox<String> countriesList = new JComboBox<String>(provincesNames);
+        JComboBox<String> countriesList = new JComboBox<String>(database.getGEO());
         JComboBox<String> fromMonthList = new JComboBox<String>(months);
         JComboBox<String> fromList = new JComboBox<String>(years);
         JComboBox<String> toMonthList = new JComboBox<String>(months);
@@ -239,6 +243,30 @@ public class Main {
         frame.setVisible(true);
         frame.setResizable(false);
 
+    }
+    
+    private static void updateDatasets(JPanel panel) {
+    	datasets = new ArrayList<>();
+    	for(int i=0; i < panel.getComponentCount() - 1; i++) {
+    		JPanel temp = (JPanel) panel.getComponent(i);
+    		// panel will have comboboxes for city, year1, month1, year2, month2
+    		// index -> 1,3,4,6,7
+    		String city = String.valueOf(((JComboBox<String>)temp.getComponent(1)).getSelectedItem());
+    		String month1 = String.valueOf(((JComboBox<String>)temp.getComponent(3)).getSelectedItem());
+    		String year1 = String.valueOf(((JComboBox<String>)temp.getComponent(4)).getSelectedItem());
+    		String month2 = String.valueOf(((JComboBox<String>)temp.getComponent(6)).getSelectedItem());
+    		String year2 = String.valueOf(((JComboBox<String>)temp.getComponent(7)).getSelectedItem());
+    		
+    		ArrayList<String> list = new ArrayList<String>();
+    		list.add(city);
+    		list.add(year1+"-"+month1);
+    		list.add(year2+"-"+month2);
+    		
+    		datasets.add(list);
+    	}
+    	for(ArrayList<String> list : datasets) {
+    		System.out.print(list.toString());
+    	}
     }
 
     }

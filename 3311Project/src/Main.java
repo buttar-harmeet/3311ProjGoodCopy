@@ -1,8 +1,10 @@
 //package statsVisualiser.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
 
@@ -10,10 +12,12 @@ public class Main {
 	
 	private static final int BTN_WIDTH = 250;
 	private static final int BTN_HEIGHT = 100;
+	
+	private static ArrayList<ArrayList<String>> datasets = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
-    	
         createMainFrame();
+        db database = new db();
     }
 
     public static void createMainFrame() {
@@ -92,7 +96,6 @@ public class Main {
         provincesNames.add("Nova Scotia");
         provincesNames.add("Nunavut");
         provincesNames.sort(null);
-        JComboBox<String> countriesList = new JComboBox<String>(provincesNames);
         //countriesList.setBounds(250, 10, 100, 100 );
 
         JLabel from = new JLabel("From");
@@ -110,7 +113,8 @@ public class Main {
         	else
         		months.add(""+i);
         }
- 
+        
+        JComboBox<String> countriesList = new JComboBox<String>(provincesNames);
         JComboBox<String> fromMonthList = new JComboBox<String>(months);
         JComboBox<String> fromList = new JComboBox<String>(years);
         JComboBox<String> toMonthList = new JComboBox<String>(months);
@@ -119,9 +123,11 @@ public class Main {
 
         panel.add(chooseCountryLabel);
         panel.add(countriesList);
+        
         panel.add(from);
         panel.add(fromMonthList);
         panel.add(fromList);
+        
         panel.add(to);
         panel.add(toMonthList);
         panel.add(toList);

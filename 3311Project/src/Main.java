@@ -2,7 +2,6 @@
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
@@ -139,8 +138,8 @@ public class Main {
         new Table();
     }
     public static void createChartFrame() {
-    	new Charts();
-        }
+    	Charts.getInstance();
+     }
 
     public static void statisticalTestFrame() {
     	new StatisticalTest();

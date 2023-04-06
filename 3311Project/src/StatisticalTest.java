@@ -22,7 +22,7 @@ public class StatisticalTest {
     
     public StatisticalTest() { 
     	JFrame frame = new JFrame("Statistical Test");
-    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     
     	JPanel panel = new JPanel();
     	panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

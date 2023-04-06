@@ -16,6 +16,7 @@ public class Table {
 	    jt.setBounds(30,40,200,300);          
 	    JScrollPane sp=new JScrollPane(jt); 
 	    
+	    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    frame.add(sp);          
 	    frame.setSize(300,400);   
 	    frame.setResizable(true);

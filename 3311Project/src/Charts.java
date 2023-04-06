@@ -25,8 +25,18 @@ public class Charts {
 	private Graph Scatter = new ScatterGraph();
 	private Graph TimeSeries = new TimeSeriesGraph();
 	
+	private static Charts instance;
+	
+	public static void getInstance() {
+		if(instance == null)
+			instance = new Charts();
+		
+		instance = null;
+	}
+	
 	public Charts() {
 		JFrame frame = new JFrame("Chart Frame");
+		graphs = new HashSet<>();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -50,7 +60,7 @@ public class Charts {
         JCheckBox LineGraph = new JCheckBox("Line", true);
         graphs.add(Line);
         JCheckBox TimeSeriesGraph = new JCheckBox("Time Series", true);
-        graphs.add(TimeSeries);
+        graphs.add(TimeSeries);;
         JCheckBox BarGraph = new JCheckBox("Bar", true);
         graphs.add(Bar);
         JCheckBox PieGraph = new JCheckBox("Pie");

@@ -14,14 +14,11 @@ public class db {
     
     public db() throws Exception {
         try {
-            // This will load the MySQL driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-            // Setup the connection with the DB
             connect = DriverManager
                     .getConnection("jdbc:mysql://localhost/db?"
                             + "user=root&password=password");
 
-            // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
             // Result set get the result of the SQL query
 //            resultSet = statement
@@ -35,31 +32,19 @@ public class db {
     }
     
     public static ResultSet getData(ArrayList<String> dataset) {
-    	ResultSet result = null;
 		try {
-			result = statement.executeQuery("Select GEO, VALUE, REF_DATE from db.nhip "
+			ResultSet result = statement.executeQuery("Select GEO, VALUE, REF_DATE from db.nhip "
 					+ "WHERE GEO = '"+ dataset.get(0)+"' AND REF_DATE BETWEEN "+ dataset.get(1) + " AND "+ dataset.get(2));
-			
-			 writeResultSet(result);
+			return result;
+			 //writeResultSet(result);
 		} catch (SQLException e) {
 			System.out.println("Select GEO, VALUE, REF_DATE from db.nhip "
 					+ "WHERE GEO = '"+dataset.get(0)+"' AND REF_DATE BETWEEN "+ dataset.get(1) + " AND "+ dataset.get(2));
 			System.out.println("Error occured in getData()\n");
 			e.printStackTrace();
 		}
-    	return result;
+    	return null;
     }
-    
-    public static ArrayList<ResultSet> getResults(){
-		
-		ArrayList<ResultSet> results = new ArrayList<>();
-		for(ArrayList<String> dataset: db.datasets) {
-			ResultSet result = db.getData(dataset);
-			results.add(result);
-		}
-		return results;
-	}
-
 
     private static void writeResultSet(ResultSet resultSet) throws SQLException {
         // ResultSet is initially before the first data set
@@ -99,22 +84,4 @@ public class db {
     	return list;
     }
 
-    // You need to close the resultSet
-    private void close() {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-
-            if (statement != null) {
-                statement.close();
-            }
-
-            if (connect != null) {
-                connect.close();
-            }
-        } catch (Exception e) {
-
-        }
-    }
 }

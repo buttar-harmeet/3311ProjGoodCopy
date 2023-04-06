@@ -171,32 +171,7 @@ public class Main {
         }
 
     public static void statisticalTestFrame() {
-
-        JFrame frame = new JFrame("Statistical Test");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setOpaque(true);
-        JTextArea textArea = new JTextArea(15, 50);
-        textArea.setWrapStyleWord(true);
-        textArea.setEditable(false);
-        JScrollPane scroller = new JScrollPane(textArea);
-        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        JPanel inputpanel = new JPanel();
-
-        panel.add(scroller);
-        panel.add(inputpanel);
-        frame.getContentPane().add(BorderLayout.CENTER, panel);
-        frame.pack();
-        frame.setLocationByPlatform(true);
-        frame.setVisible(true);
-        frame.setResizable(false);
+    	new StatisticalTest();
 
     }
     public static void machineTestFrame() {

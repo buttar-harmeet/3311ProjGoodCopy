@@ -113,7 +113,6 @@ public class Charts {
 	        		checkbox.setSelected(false);
 	        		currentCharts--;
 	        	} else {
-	        		System.out.println(checkbox.getText());
 		        	// Line to add graph type.
 	        		graphs.add(getGraph(checkbox.getText()));
 	        	}

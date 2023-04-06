@@ -28,7 +28,6 @@ public class LineGraph extends Graph {
 		
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		
-		System.out.println("Datasets size: "+ db.datasets.size());
 		
 		for(int i=0; i < db.datasets.size(); i++) {
 			ArrayList<String> array = db.datasets.get(i);
@@ -38,7 +37,6 @@ public class LineGraph extends Graph {
 			try {
 				ResultSet result = db.getData(array);
 				while(result.next()) {
-					System.out.println(result.getString("GEO"));
 					year = Integer.parseInt(result.getString("REF_DATE").substring(0, 4));
 					series.add(result.getDouble("VALUE"), year);
 				}
